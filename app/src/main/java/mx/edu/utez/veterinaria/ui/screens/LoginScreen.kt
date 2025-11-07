@@ -80,7 +80,7 @@ fun LoginScreen(
 
         PrimaryButton("Iniciar sesión") {
             viewModel.login {
-                navController.navigate("menu") {
+                navController.navigate("petMain") {
                     popUpTo("login") { inclusive = true } // Evita volver al login
                 }
             }
