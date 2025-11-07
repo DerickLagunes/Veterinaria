@@ -30,6 +30,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import mx.edu.utez.veterinaria.R
 import mx.edu.utez.veterinaria.data.model.Pet
 
@@ -66,18 +67,20 @@ fun PetCard(pet: Pet, modifier: Modifier = Modifier) {
                     modifier = Modifier.weight(0.4f),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    /*
-                    Image(
-                        painter = painterResource(id = pet.foto),
-                        contentDescription = "Foto de perfil",
+                    // --- USA AsyncImage PARA CARGAR DESDE LA URL ---
+                    AsyncImage(
+                        model = pet.imageUrl, // La URL que viene de tu API
+                        contentDescription = "Foto de ${pet.name}",
+                        // Placeholder mientras carga o si hay error
+                        placeholder = painterResource(id = R.drawable.vetlogo),
+                        error = painterResource(id = R.drawable.vetlogo),
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .aspectRatio(3f / 4f) // Proporción de foto de pasaporte
+                            .aspectRatio(3f / 4f)
                             .clip(RoundedCornerShape(8.dp))
                             .border(1.dp, Color.Gray, RoundedCornerShape(8.dp))
-                    ) */
-
+                    )
                     Spacer(modifier = Modifier.height(16.dp))
 
                 }

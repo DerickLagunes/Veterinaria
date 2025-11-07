@@ -8,8 +8,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import mx.edu.utez.veterinaria.data.model.VetDatabase
-import mx.edu.utez.veterinaria.data.model.dao.PetDao
+//import mx.edu.utez.veterinaria.data.model.VetDatabase
+//import mx.edu.utez.veterinaria.data.model.dao.PetDao
+import mx.edu.utez.veterinaria.data.network.RetrofitInstance
 import mx.edu.utez.veterinaria.data.repository.PetRepository
 import mx.edu.utez.veterinaria.ui.screens.LoginScreen
 import mx.edu.utez.veterinaria.ui.screens.PetScreen
@@ -35,14 +36,20 @@ fun Navigation(
         }
         composable("petMain") {
             val context = LocalContext.current.applicationContext
+
             val petRepository = remember {
-                val database = VetDatabase.getDatabase(context)
-                PetRepository(database.petDao())
+                // Pasamos el context al repositorio
+                PetRepository(RetrofitInstance.api, context)
             }
-            val factory = remember(petRepository) {
-                PetViewModelFactory(petRepository)
+
+            val factory = remember(petRepository, context) {
+                // Pasamos el context a la factory
+                PetViewModelFactory(petRepository, context)
             }
+
             val viewModel: PetViewModel = viewModel(factory = factory)
+
+            // 4. Tu pantalla funciona sin cambios
             PetScreen(viewModel, navController)
         }
     }
