@@ -41,12 +41,18 @@ android {
 }
 
 dependencies {
+    //Dependencia para cargar imagenes
     implementation("io.coil-kt:coil-compose:2.6.0")
-    implementation(libs.retrofit)
-    implementation(libs.gson)
+
+    //Dependencia para SQLite local (Room)
     implementation(libs.androidx.room)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
+
+    //Dependencias retrofit
+    implementation(libs.retrofit)
+    implementation(libs.gson)
+
     implementation(libs.androidx.datastore)
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.core.ktx)
